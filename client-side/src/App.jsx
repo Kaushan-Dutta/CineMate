@@ -9,12 +9,12 @@ import Pricing from './pages/Home/Pricing'
 
 import Profile from './pages/User/Profile';
 import Downloads from './pages/User/Downloads';
-import Create from './pages/User/Create'
 import Favourites from './pages/User/Favourites'
 import Collection from './pages/User/Collection';
 
 import NavBar from './components/Navbar'
 import Footer from './components/Footer'
+import Create from './components/Popups/Create';
 
 import ContentWrapper from './wrapper/ContentWrapper';
 import UserWrapper from './wrapper/UserWrapper';
@@ -23,6 +23,7 @@ const App = () => {
   return (
     <>
       <NavBar/>
+           <Create/>
       <div className='min-h-screen bg-extra_light font-inter' >
       <Routes>
         <Route path="/" element={<Landing/>}/>
@@ -36,12 +37,12 @@ const App = () => {
         <Route path="/:username" element={<UserWrapper/>}>
           <Route index element={<Profile/>}/>
           <Route path="downloads" element={<Downloads/>}/>
-          <Route path="create" element={<Create/>}/>
           <Route path="favourites" element={<Favourites/>}/>
           <Route path="collection" element={<Collection/>}/>
         </Route>
       </Routes>
       </div>
+      <Create/>
       <Footer/>
     </>
   )

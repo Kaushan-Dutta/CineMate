@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { BiSolidRightArrow } from 'react-icons/bi';
 import { TbFilterEdit } from 'react-icons/tb';
+import { Filters } from '../Static';
 
 const Filter = () => {
     const [filter,getFilter]=useState(false);
@@ -11,34 +12,24 @@ const Filter = () => {
                     <TbFilterEdit className='text-3xl '/>&nbsp;&nbsp;<b className='text-slate-500'>FILTERS</b>
                 </div>
                 <hr/>
-                <div className='flx-col gap-2' id="orientation">
-                    <label><b>Orientation</b></label>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Horizonatal</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Vertical</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Square</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Panoramic</p>
-                   
-                </div>
-                <div className='flx-col gap-2' id="License">
-                    <label><b>License</b></label>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Free</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Premium</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Gold</p>
-                  
-                </div>
-                <div className='flx-col gap-2' id="Style">
-                    <label><b>Style</b></label>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Water Color</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Cartoon</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;3D</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Geometric</p>
-                    <p><input type="checkbox"/>&nbsp;&nbsp;Gradient</p>
-                  
-                </div>
-
+                {
+                    Filters.map((obj,id)=>(
+                        <div className='flx-col gap-2' id={obj.label} key={id}>
+                            <label className='text-lg'><b>{obj.label}</b></label>
+                            <div className=' grid grid-cols-2'>
+                                {obj.inputs.map((option)=>(
+                                    <p><input type="checkbox"/>&nbsp;&nbsp;{option}</p>
+                                ))}
+                            </div>
+                        
+                        </div>
+                    ))
+                }
+                
+                
                 <div className='flx-col gap-2' id='Sort'>
                     <label>Sort on:</label>
-                    <select id="sort" className='p-2 rounded-md '>
+                    <select id="sort" className='p-2 rounded-md my-2 '>
                         <option value="date">Date Created</option>
                         <option value="likes">Likes</option>
                         <option value="size">Video Size</option>

@@ -1,3 +1,4 @@
+
 const Asset = {
     banner: 'https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65230921b217dac34a18/view?project=652188b1172fe1759f45&mode=admin',
     container: 'https://www.videvo.net/images/home/home-1.jpg',
@@ -8,10 +9,11 @@ const Asset = {
     video1: 'https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65266e61d67de64aa8d3/view?project=652188b1172fe1759f45&mode=admin',
     video2: 'https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65266e907b3e21db3a06/view?project=652188b1172fe1759f45&mode=admin',
     video3: 'https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65266ec7be80d4aaaf34/view?project=652188b1172fe1759f45&mode=admin',
-    video4: 'https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65266ec7be80d4aaaf34/view?project=652188b1172fe1759f45&mode=admin',
-    video5: 'https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/6523093a58c58bb3fa1d/view?project=652188b1172fe1759f45&mode=admin',
+    video4: 'https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/6526df26a6bf04f14f04/view?project=652188b1172fe1759f45&mode=admin',
+    video5: 'https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65266f19a5c37a0e9e94/view?project=652188b1172fe1759f45&mode=admin',
 }
+ 
 const Icon={
-    
+
 } 
 export default Asset;

@@ -17,7 +17,7 @@ const Content = () => {
                         <BsDownload className='cursor-pointer hover:text-black' />
 
                         <MdOutlineCollections className='cursor-pointer hover:text-black' />
-                        <BsShare className='cursor-pointer hover:text-black' />
+                        <BsShare className='cursor-pointer hover:text-black' onClick={()=>{navigator.clipboard.writeText(window.location.href);}}/>
 
                         <HiOutlineHeart className='cursor-pointer hover:text-black' />
 

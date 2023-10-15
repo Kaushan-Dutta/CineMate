@@ -85,13 +85,7 @@ export const Navigation=[
         isProtected:true,
         icon:<BsDownload/>,
     },
-    {
-        name:"Create",
-        path:'/:username/create',
-        onProfile:true,
-        isProtected:true,
-        icon:<PiShapesLight/>,
-    },
+
     {
         name:"Favourites",
         path:'/:username/favourites',
