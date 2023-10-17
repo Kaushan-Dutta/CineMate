@@ -1,11 +1,22 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import Download from '../../api/User/FetchDownloads';
+
 const Downloads=()=>{
     const array=[1,2,3,4.5]
+    const {FetchDownloads}=Download();
+
+    useEffect(()=>{
+        const loadContents=async()=>{
+            console.log(await FetchDownloads())
+        }
+        loadContents();
+    },[])
+
     return(
         <>
             <div className="">
                 <p className="text-lg text-primary tracking-widest"><b>DOWNLOADS/</b></p>
-                <p className='text-2xl text-slate-600'>kaushan5409</p>
+                <p className='text-2xl text-slate-600'>{window.location.pathname.split('/')[1]}</p>
             </div>
             <div className=' text-center'>
                 <h1 className='my-10 text-2xl text-primary tracking-widest'><b>Your Downloads</b></h1>

@@ -22,7 +22,7 @@ const UserType = new GraphQLObjectType({
     createdContent: {
       type: new GraphQLList(ContentType),
       resolve(parent, args) {
-        return contentModel.find({ owner: parent._id });
+        return(contentModel.find({ owner: parent._id }));
       },
     },})
 });
@@ -33,6 +33,7 @@ const ContentType = new GraphQLObjectType({
     _id: { type: GraphQLString },
     type: { type: GraphQLString },
     description: { type: GraphQLString },
+    url: { type: GraphQLString},
     owner: {
       type: UserType,
       resolve(parent, args) {
@@ -60,6 +61,7 @@ const RootQuery = new GraphQLObjectType({
         for(let i=0;i<downloads.length;i++){
             contents.push(contentModel.findById(downloads[i].contentId))
         }
+        console.log(contents);
         return contents;
       },
     },

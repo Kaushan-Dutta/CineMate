@@ -16,6 +16,7 @@ app.use("/graphql", graphqlHTTP({
 
 app.use('/user', require('./Routers/useroute'));
 
+
 app.get("/text-mode", (req, res) => {
   res.status(200).json({ message: "Welcome to text-mode" });
 });

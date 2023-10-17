@@ -1,6 +1,9 @@
 import React from 'react';
+//import FetchData from '../../api/User/FetchData'; 
+
 const Favourites=()=>{
     const array=[1,2,3,4.5]
+    
     return(
         <>
             <div className="">
@@ -11,7 +14,7 @@ const Favourites=()=>{
                 <h1 className='my-10 text-2xl text-primary tracking-widest'><b>Your Favourites</b></h1>
                 <div className='grid md:grid-cols-2  lg:grid-cols-3 grid-cols-1'>
                     {
-                        array.map((obj,id)=>(
+                        favourites.map((obj,id)=>(
                             <div key={id} className='m-5  cursor-pointer overflow-hidden transition-all ease-out duration-300' onClick={()=>navigate(`${id}`)}>
                                 <video autoPlay muted loop className='w-[400px] hover:scale-105' >
                                 <source src="https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65230921b217dac34a18/view?project=652188b1172fe1759f45&mode=admin" type="video/mp4" />

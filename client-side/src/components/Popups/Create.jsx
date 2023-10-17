@@ -12,13 +12,14 @@ import { AiFillPlayCircle } from 'react-icons/ai';
 
 const Create = () => {
   const [popup,setPopup]=useState(false);
-  const {createList,content,setContent} =CreateContent();
+  const {createList,content,setContent,uploadContent} =CreateContent();
   const [recorder,setRecoder]=useState(false);
 
   const onDrop=useCallback(async(acceptedFiles)=>{
     console.log(acceptedFiles[0]);
     setContent(acceptedFiles[0]);
   },[content])
+  
   useCallback(()=>{
     console.log("decdvvrv",content);
   },[content])
@@ -98,7 +99,7 @@ const Create = () => {
         </div>
         <hr className='bg-black  border-black '/>
         <div className='px-10 '>
-            <form className='flx-col gap-2 '>
+            <form className='flx-col gap-2 ' onSubmit={uploadContent}>
               {createList.map((obj,index)=>(
                 <>
                 {

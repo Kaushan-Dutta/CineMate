@@ -1,7 +1,8 @@
 import React from 'react';
 import {SubscribePlans } from '../Static'
-
+import { Payment } from '../../api/User/Payment';
 const Plans=()=>{
+    const {handleClick}=Payment();
     return (
         <>
         {SubscribePlans.map((obj,id)=>(
@@ -29,7 +30,7 @@ const Plans=()=>{
                     
                 </div>
                 <br/>
-                <button className='primary-btn bottom-4 relative'>Select Plan</button>
+                <button className='primary-btn bottom-4 relative' onClick={handleClick}>Select Plan</button>
             </div>
             ))}
         </>

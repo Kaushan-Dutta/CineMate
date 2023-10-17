@@ -73,14 +73,14 @@ export const Navigation=[
     
     {
         name:"Profile",
-        path:'/:username',
+        path:'',
         onProfile:true,
         isProtected:true,
         icon:<BsPeopleFill/>,
     },
     {
         name:"Downloads",
-        path:'/:username/downloads',
+        path:'/downloads',
         onProfile:true,
         isProtected:true,
         icon:<BsDownload/>,
@@ -88,14 +88,14 @@ export const Navigation=[
 
     {
         name:"Favourites",
-        path:'/:username/favourites',
+        path:'/favourites',
         onProfile:true,
         isProtected:true,
         icon:<HiOutlineHeart/>
     },
     {
         name:"Collection",
-        path:'/:username/collection',
+        path:'/collection',
         onProfile:true,
         isProtected:true,
         icon:<MdOutlineCollections/>,

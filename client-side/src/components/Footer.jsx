@@ -39,13 +39,13 @@ const Footer = () => {
     <footer className=' w-full bottom-0 overflow-hidden bg-theme primary-container text-white'>
         <div className='footer '>
             <div className=''>
-                <a href="/" className='logo'>CineMate</a>
+                <Link to="/" className='logo'>CineMate</Link>
             </div>
             <div className='flx-row space-x-7 md:translate-x-10'>
                 {
                     Social.map((item,index)=>(
                         <li key={index} className='text-xl '>
-                            <a href={item.link} >{item.icon}</a>
+                            <Link to={item.link} >{item.icon}</Link>
                         </li>
                     ))
                 }
@@ -55,7 +55,7 @@ const Footer = () => {
                     Navigation.filter((obj)=>obj.onFooter).
                     map((item,index)=>(
                         <li key={index}>
-                            <a href={item.path} >{item.name}</a>
+                            <Link to={item.path} >{item.name}</Link>
                         </li>
                     ))
                 }

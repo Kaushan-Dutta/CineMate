@@ -18,9 +18,8 @@ const Authentication=async(req,res,next)=>{
 
 const Register=async(req,res)=>{
     try{
-        const {email,profile}=req.body;
-        const username=email.split('@')[0];
-        const createUser=new userModel({email,profile,username});
+        const {email,nickname,picture}=req.body;
+        const createUser=new userModel({email,profile:picture,username:nickname});
         //console.log(createUser);
         await createUser.save();
         var signup_emailBody = EmailHandler.mailGenerator.generate(EmailHandler.signup_email());

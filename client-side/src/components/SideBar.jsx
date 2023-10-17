@@ -4,9 +4,10 @@ import { ImCross } from 'react-icons/im';
 import { BiSolidDownArrow } from 'react-icons/bi';
 
 import { Categories,Navigation } from '../router.config';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const SideBar = ({sidebar,openSidebar}) => {
-  const [user,setUser]=useState(null);
+  const { isLoading,user,loginWithRedirect,logout } = useAuth0();        
 
   return (
     <div className='bg-light p-5 h-screen w-[300px] absolute z-10 flx-col gap-5 overflow-y-auto top-0 left-0 transition-all ease-out  '>
@@ -39,8 +40,8 @@ const SideBar = ({sidebar,openSidebar}) => {
         <hr className='my-5'/>
         <div className=''>
         <li className=''>
-                        {user?<button className='primary-btn w-full'>Logout</button>:
-                        <button className='primary-btn w-full'>Login</button>}
+                        {user?<button className='primary-btn w-full' onClick={logout}>Logout</button>:
+                        <button className='primary-btn w-full' onClick={loginWithRedirect}>Login</button>}
         </li>
         </div>
     </div>

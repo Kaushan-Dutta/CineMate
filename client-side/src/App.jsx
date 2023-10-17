@@ -23,24 +23,25 @@ const App = () => {
   return (
     <>
       <NavBar/>
-           <Create/>
+      <Create/>
       <div className='min-h-screen bg-extra_light font-inter' >
-      <Routes>
-        <Route path="/" element={<Landing/>}/>
-        <Route path="/pricing" element={<Pricing/>}/>
+        <Routes>
+          <Route path="/" >
+              <Route index element={<Landing/>}/>
+              <Route path="/pricing" element={<Pricing/>}/>
 
-        <Route path="/search" element={<ContentWrapper/>}>
-            <Route index element={<Gallery/>}/>
-            <Route path=":id" element={<Content/>}/>
-        </Route>
-      
-        <Route path="/:username" element={<UserWrapper/>}>
-          <Route index element={<Profile/>}/>
-          <Route path="downloads" element={<Downloads/>}/>
-          <Route path="favourites" element={<Favourites/>}/>
-          <Route path="collection" element={<Collection/>}/>
-        </Route>
-      </Routes>
+              <Route path="/search" element={<ContentWrapper/>}>
+                  <Route index element={<Gallery/>}/>
+                  <Route path=":id" element={<Content/>}/>
+              </Route>
+              <Route path="/:username" element={<Profile/>}/>
+              <Route path="/:username" element={<UserWrapper/>}>
+                  <Route path="downloads" element={<Downloads/>}/>
+                  <Route path="favourites" element={<Favourites/>}/>
+                  <Route path="collection" element={<Collection/>}/>
+              </Route>
+          </Route>
+        </Routes>
       </div>
       <Create/>
       <Footer/>
