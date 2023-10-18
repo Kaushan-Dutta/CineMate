@@ -61,7 +61,6 @@ const RootQuery = new GraphQLObjectType({
         for(let i=0;i<downloads.length;i++){
             contents.push(contentModel.findById(downloads[i].contentId))
         }
-        console.log(contents);
         return contents;
       },
     },
@@ -89,36 +88,57 @@ const RootQuery = new GraphQLObjectType({
 const RootMutation=new GraphQLObjectType({
     name:'RootMutation',
     fields:{
+
       updateLicense:{
          type:GraphQLString,
          args:{email:{type:GraphQLString},license:{type:GraphQLString}},
          resolve(parent,args){
-            return userModel.updateOne({email:args.email},{$set:{license:args.license}})
+          try{
+            return userModel.updateOne({email:args.email},{$set:{license:args.license}})}
+          catch(err){
+            console.log(err);
+          }
          }
       },
+
       addDownloads:{
          type:ContentType,
          args:{userEmail:{type:GraphQLString},contentId:{type:GraphQLID}},
          resolve(parent,args){
+          try{
             const download= new downloadModel({contentId:args.contentId,userEmail:args.userEmail})
             return download.save();
           }
-      },
+          catch(err){
+            console.error(err);
+          }
+      }},
+
       addFavourites:{
         type:ContentType,
         args:{userEmail:{type:GraphQLString},contentId:{type:GraphQLID}},
         resolve(parent,args){
-           const favourite= new favouriteModel({contentId:args.contentId,userEmail:args.userEmail})
-           return favourite.save();
+          try{
+            const favourite= new favouriteModel({contentId:args.contentId,userEmail:args.userEmail})
+            return favourite.save();
           }
-     },
+          catch(err){
+            console.error(err);
+          }
+     }},
+
      createContent:{
         type:ContentType,
         args:{type:{type:GraphQLString},description:{type:GraphQLString}
     ,url:{type:GraphQLString},owner:{type:GraphQLID}},
+
         resolve(parent,args){
-          const create= new contentModel({type:args.type,description:args.description,url:args.url,owner:args.owner})
-          return create.save();
+          try{
+            const create= new contentModel({type:args.type,description:args.description,url:args.url,owner:args.owner})
+            return create.save();}
+          catch(err){
+            console.log(err);
+          }
         }
      },
     }
