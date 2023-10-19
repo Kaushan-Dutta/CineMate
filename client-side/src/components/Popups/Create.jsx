@@ -31,30 +31,30 @@ const Create = () => {
       useReactMediaRecorder({ video: true });
       
       return (
-        <div className='top-0 left-0 w-screen h-screen bg-zinc-800 bg-opacity-70 fixed z-30 primary-container  font-inter'>
-         <div className='flx-col gap-10'>
-            <div className='flx-row justify-end'>
-                <button className=' text-5xl flx-row justify-end text-light' onClick={()=>{setRecoder(false)}}><ImCross/></button>
+        <div className='popup-window primary-container font-inter'>
+          <div className='w-full rounded-md p-5 bg-light font-inter flx-col gap-5'>
+            <div className='flx-row justify-end text-theme'>
+              <button onClick={()=>{setRecoder(false)}}><ImCross/></button>
             </div>
             <div className='flx-row justify-around  flex-wrap md:space-x-10 '>
                 <div className='flx-col'>
                   <Webcam
                       audio={false}
                       ref={webcamRef}
-                      width="600px"
-                      height="300px"
+                      width="500px"
+                      height="250px"
                       screenshotFormat="image/jpeg"
                   />
                   <div className='flx-row justify-center space-x-5 my-4'>
-                      <button onClick={startRecording} className={`text-5xl hover:text-light ${status=='recording'?'text-light':''}`}><FaDotCircle/></button>
-                      <button onClick={stopRecording}  className='text-5xl hover:text-light'><AiFillPlayCircle/></button>
+                      <button onClick={startRecording} className={`text-5xl text-primary hover:text-red-700 ${status=='recording'?'text-red-700':''}`}><FaDotCircle/></button>
+                      <button onClick={stopRecording}  className='text-5xl text-primary hover:text-red-700'><AiFillPlayCircle/></button>
                   </div>
 
                 </div>
                 {mediaBlobUrl &&
                   <div className='flx-col realative -translate-y-1  gap-5'>
-                        <video src={mediaBlobUrl} controls autoPlay width="600px"
-                        height="300px" />
+                        <video src={mediaBlobUrl} controls autoPlay width="500px"
+                        height="250px" />
                 <button className='mx-auto primary-btn-sqr w-[200px] text-center text-lg ' onClick={()=>setRecoder(true)}><b>Record</b></button>
                   </div>}
                 
