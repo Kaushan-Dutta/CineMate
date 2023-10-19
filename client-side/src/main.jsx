@@ -30,7 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           }}
         >
           <UserProvider>
-            <Toaster position="bottom-right"
+            <Toaster position="top-center"
               reverseOrder={false}
               toastOptions={{ duration: 5000 }} />
             <App />

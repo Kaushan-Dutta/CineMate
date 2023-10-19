@@ -4,6 +4,7 @@ import SearchBar from '../../components/SearchBar';
 import { BsArrowRightCircle } from 'react-icons/bs';
 
 import { Category, Gallery, Section } from '../Static';
+import Flower from '../../assets/flower.svg'
 
 const Landing = () => {
 
@@ -11,17 +12,13 @@ const Landing = () => {
   return (
     <>
       <div className='font-inter'>
-        <section className='h-[80vh] banner'>
-          <video autoPlay muted loop>
-            <source src="https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65230921b217dac34a18/view?project=652188b1172fe1759f45&mode=admin" type="video/mp4" />
-          </video>
+        <section className='h-[80vh] banner flx-row justify-center primary-container bg-theme'>
+          
 
-          <div className=' w-full h-full  primary-container text-white flx-row justify-center '>
-            <div className=' md:w-3/5 w-[80%] text-center flx-col gap-5 z-10'>
-              <p className='text-5xl '><b>Free stock video footage</b></p>
-              <p className='text-xl'>Turn ideas into outstanding designs with high-quality vectors, photos, videos, mockups, and more</p>
+            <div className=' md:w-3/5 w-full text-center flx-col gap-5 z-10 text-white'>
+              <p className='text-6xl '><b>Stock <span className='text-shade1'>video footage</span></b></p>
+              <p className='text-2xl font-mono lg:mb-10 '>Turn ideas into outstanding designs with high-quality vectors, photos, videos, mockups, and more</p>
               <SearchBar />
-            </div>
 
           </div>
         </section>
@@ -55,7 +52,7 @@ const Landing = () => {
           <p className='text-xl text-[#777777]'>Get the inspiration you need with these collections carefully selected to boost your project’s engagement.</p>
           <div className='grid grid-cols-2 md:grid-cols-4  gap-5 my-10'>
             {Gallery.map((obj, id) => (
-              <video autoPlay muted loop className={obj.className}><source src={obj.video} type="video/mp4" /></video>
+              <video autoPlay muted loop className={obj.className} key={id}><source src={obj.video} type="video/mp4" /></video>
             ))}
           </div>
         </section>

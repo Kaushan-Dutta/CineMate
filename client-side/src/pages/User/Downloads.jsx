@@ -1,13 +1,13 @@
 import React,{useEffect} from 'react';
-import Download from '../../api/User/FetchDownloads';
+import Download from '../../api/User/Downloads';
 
 const Downloads=()=>{
     const array=[1,2,3,4.5]
-    const {FetchDownloads}=Download();
+    const {downloads}=Download();
 
     useEffect(()=>{
         const loadContents=async()=>{
-            console.log(await FetchDownloads())
+            console.log(downloads)
         }
         loadContents();
     },[])

@@ -4,6 +4,7 @@ import { useQuery, gql } from '@apollo/client';
 const getProfile = gql`
   query  GetUser($username:String!){
     getUser(username:$username ) {
+      _id
       email
       profile
       username
@@ -23,7 +24,7 @@ const getProfile = gql`
 
 const FetchData = () => {
 
-  const { loading, error, data,refetch } = useQuery(getProfile);
+  const { refetch } = useQuery(getProfile);
  
   const fetchProfile = async(username) => {
     try{

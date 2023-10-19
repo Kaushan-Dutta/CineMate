@@ -17,8 +17,8 @@ const Filter = () => {
                         <div className='flx-col gap-2' id={obj.label} key={id}>
                             <label className='text-lg'><b>{obj.label}</b></label>
                             <div className=' grid grid-cols-2'>
-                                {obj.inputs.map((option)=>(
-                                    <p><input type="checkbox"/>&nbsp;&nbsp;{option}</p>
+                                {obj.inputs.map((option,id)=>(
+                                    <p key={id}><input type="checkbox"/>&nbsp;&nbsp;{option}</p>
                                 ))}
                             </div>
                         

@@ -5,7 +5,6 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLSchema,
-  GraphQLID,
   GraphQLInt,
   GraphQLList,
 } = require("graphql");
@@ -13,7 +12,7 @@ const {
 const UserType = new GraphQLObjectType({
   name:"User",
   fields:()=>({
-    _id: { type: GraphQLID },
+    _id: { type: GraphQLString },
     email: { type: GraphQLString },
     profile: { type: GraphQLString },
     username: { type: GraphQLString },
@@ -67,11 +66,11 @@ const RootQuery = new GraphQLObjectType({
     getFavourites: {
         type: new GraphQLList(ContentType),
         args: { email: { type:GraphQLString } },
-        resolve(parent, args) {
+        async resolve(parent, args) {
           let contents=[];
-          const favourites= favouriteModel.find({ userEmail: args.email });
+          const favourites= await favouriteModel.find({ userEmail: args.email });
           for(let i=0;i<favourites.length;i++){
-              contents.push(contentModel.findById(favourites[i].contentId))
+              contents.push(await contentModel.findById(favourites[i].contentId))
           }
           return contents;
        },
@@ -82,7 +81,17 @@ const RootQuery = new GraphQLObjectType({
             return contentModel.find({});
         }
     },
-
+    getContent:{
+      type:ContentType,
+      args:{id:{type:GraphQLString}},
+      resolve(parent, args) {
+          try{
+          return contentModel.findById({_id:args.id});}
+          catch(err){
+            console.log(err.message);
+          }
+      }
+  },
   },
 });
 const RootMutation=new GraphQLObjectType({
@@ -103,7 +112,7 @@ const RootMutation=new GraphQLObjectType({
 
       addDownloads:{
          type:ContentType,
-         args:{userEmail:{type:GraphQLString},contentId:{type:GraphQLID}},
+         args:{userEmail:{type:GraphQLString},contentId:{type:GraphQLString}},
          resolve(parent,args){
           try{
             const download= new downloadModel({contentId:args.contentId,userEmail:args.userEmail})
@@ -116,9 +125,10 @@ const RootMutation=new GraphQLObjectType({
 
       addFavourites:{
         type:ContentType,
-        args:{userEmail:{type:GraphQLString},contentId:{type:GraphQLID}},
+        args:{userEmail:{type:GraphQLString},contentId:{type:GraphQLString}},
         resolve(parent,args){
           try{
+
             const favourite= new favouriteModel({contentId:args.contentId,userEmail:args.userEmail})
             return favourite.save();
           }
@@ -130,9 +140,11 @@ const RootMutation=new GraphQLObjectType({
      createContent:{
         type:ContentType,
         args:{type:{type:GraphQLString},description:{type:GraphQLString}
-    ,url:{type:GraphQLString},owner:{type:GraphQLID}},
+    ,url:{type:GraphQLString},owner:{type:GraphQLString}},
 
         resolve(parent,args){
+          //console.log(args.type,args.owner,args.url,args.owner);
+
           try{
             const create= new contentModel({type:args.type,description:args.description,url:args.url,owner:args.owner})
             return create.save();}

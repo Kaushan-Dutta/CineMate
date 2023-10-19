@@ -16,7 +16,7 @@ const UserProvider = ({children}) => {
             try{
                 //console.log(user);
                 const getProfile=await axios.post('http://localhost:5000/user/auth',user);
-                console.log(getProfile.data.data[0]);
+                //console.log(getProfile.data.data[0]);
                 setProfile(getProfile.data.data[0]);
             }
             catch(err){

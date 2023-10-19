@@ -5,12 +5,13 @@ import { BiSolidDownArrow } from 'react-icons/bi';
 import { MdPerson } from 'react-icons/md';
 import SideBar from './SideBar';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link } from 'react-router-dom';
+import { Link, useFetcher } from 'react-router-dom';
 import { userData } from '../context/UserProvider';
 
 const Profile_Drop=()=>{
     const { user } = useAuth0();        
     const {profile}=userData();
+    
     return(
         <div className='flx-col gap-5 py-5 px-1'>
                 <div className='flx-row space-x-3'>
@@ -54,7 +55,7 @@ const Category_Drop=()=>{
 const Navbar = () => {
   const [sidebar,openSidebar]=useState(false)
   const { isLoading,user,loginWithRedirect,logout } = useAuth0();        
-
+ 
   return (
     <>
         <nav className=' hidden md:flex flex-row items-center justify-between' id="navbar_mx">
@@ -111,7 +112,7 @@ const Navbar = () => {
             <div className='w-1/3 flx-row justify-end'>
             
                 {user?<div className='category cursor-pointer'>
-                            <img src="" alt="profile" className='w-[50px] h-[50px] rounded-full p-1 bg-blue-400'/>
+                            <img src={user?.picture} alt="profile" className='w-[50px] h-[50px] rounded-full p-1 bg-blue-400'/>
                             <div className='hidden absolute translate-y-5 -translate-x-72 bg-light text-slate-950 text-left w-[350px] px-5 rounded-md' id="category_drop">
                                 <Profile_Drop/>
                             </div>

@@ -18,12 +18,15 @@ import Create from './components/Popups/Create';
 
 import ContentWrapper from './wrapper/ContentWrapper';
 import UserWrapper from './wrapper/UserWrapper';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
+  const { isLoading,user} = useAuth0();  
+
   return (
     <>
       <NavBar/>
-      <Create/>
+      {user && <Create/>}
       <div className='min-h-screen bg-extra_light font-inter' >
         <Routes>
           <Route path="/" >
@@ -43,7 +46,7 @@ const App = () => {
           </Route>
         </Routes>
       </div>
-      <Create/>
+      {user && <Create/>}
       <Footer/>
     </>
   )

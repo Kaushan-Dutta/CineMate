@@ -32,11 +32,11 @@ const Profile = () => {
                 <div className='grid md:grid-cols-2  lg:grid-cols-3 grid-cols-1'>
                     {
                         userProfile?.createdContent?.map((obj,id)=>(
-                            <div key={id} className='m-5  cursor-pointer overflow-hidden transition-all ease-out duration-300' onClick={()=>navigate(`${id}`)}>
-                                <video autoPlay muted loop className='w-[400px] hover:scale-105' >
-                                <source src="https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65230921b217dac34a18/view?project=652188b1172fe1759f45&mode=admin" type="video/mp4" />
+                            <div key={id} className='m-5  cursor-pointer ' onClick={()=>navigate(`${id}`)}>
+                                <video autoPlay muted loop className='w-[500px] ' >
+                                <source src={obj?.url} type="video/mp4" />
                                 </video>
-                                <p className='relative -translate-y-10 text-white text-xl'><b>Video Management</b></p>                    
+                                <p className='relative -translate-y-10 text-white text-md px-5'><b>{obj?.description}</b></p>                    
                             </div>
                         ))
                     }

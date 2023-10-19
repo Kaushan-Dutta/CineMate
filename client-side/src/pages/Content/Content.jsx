@@ -1,31 +1,71 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { BsShare } from 'react-icons/bs';
 import { BsDownload } from 'react-icons/bs';
 import { MdOutlineCollections } from 'react-icons/md';
 import { HiOutlineHeart } from 'react-icons/hi';
+import { useQuery, gql } from '@apollo/client';
+import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast'
+import Favourites from '../../api/User/Favourites';
+
+const get_content = gql`
+  query GetContent($id:String!) {
+    getContent(id: $id) {
+      _id
+      type
+      url
+      description
+      owner {
+        profile
+        username
+      }
+    }
+  }
+`;
 
 const Content = () => {
+    const [content,setContent]=useState();
+    const [video,setVideo]=useState();
+    const {AddFavourites}=Favourites();
+
+    const { refetch } = useQuery(get_content);
+    useEffect(()=>{
+        const loadContent=async()=>{
+            
+            const res=await refetch({
+                id: window.location.pathname.split('search/')[1]
+             })
+            setVideo(res.data.getContent.url)
+            setContent(res.data.getContent);
+        }
+        
+        loadContent();
+    },[])
+    const handleFavourite=async()=>{
+        await AddFavourites()
+    }
     return (
         <div className='base-container'>
             <div className='primary-container flx-col  md:flex-row items-center justify-between flex-wrap '>
                 <div className='flx-col gap-5 md:w-1/2 '>
                     <video controls className='w-[600px] ' >
-                        <source src="https://cloud.appwrite.io/v1/storage/buckets/652189848a2604d0b671/files/65230921b217dac34a18/view?project=652188b1172fe1759f45&mode=admin" type="video/mp4" />
+                        {video && <source src={video} type="video/mp4" />}
                     </video>
+                   
                     <div className='flx-row justify-center space-x-10 text-2xl  text-[#424242] m-5'>
 
                         <BsDownload className='cursor-pointer hover:text-black' />
 
                         <MdOutlineCollections className='cursor-pointer hover:text-black' />
-                        <BsShare className='cursor-pointer hover:text-black' onClick={()=>{navigator.clipboard.writeText(window.location.href);}}/>
+                        <BsShare className='cursor-pointer hover:text-black' onClick={()=>{navigator.clipboard.writeText(window.location.href);toast.success("URL Copied")}}/>
 
-                        <HiOutlineHeart className='cursor-pointer hover:text-black' />
+                        <HiOutlineHeart className='cursor-pointer hover:text-black' onClick={handleFavourite}/>
 
                     </div>
                 </div>
                 <div className='text-center md:w-1/2 flx-col gap-5 '>
-                    <p className='text-2xl md:w-4/5 mx-auto'><b>Bird's eye view of colorful orange sunrise on valley with trees covered with fog</b></p>
-                    <p>by&nbsp;<a href="" className='text-shade2'>Kaushan5409</a></p>
+                    <p className='text-2xl md:w-4/5 mx-auto'><b>{content?.description}</b></p>
+                    <p>by&nbsp;<Link to={`/${content?.owner?.username}`} className='text-shade2'>{content?.owner?.username}</Link></p>
                     <button className='mx-auto flx-row justify-center w-[250px] p-3 text-lg rounded-lg text-white bg-shade1'><BsDownload/>&nbsp;&nbsp;<b>Download</b></button>
                 </div>
             </div>

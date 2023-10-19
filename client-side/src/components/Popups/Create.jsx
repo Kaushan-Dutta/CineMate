@@ -1,18 +1,18 @@
 import React,{useState,useCallback,useRef,  forwardRef } from 'react'
 import { ImCross } from 'react-icons/im';
 import CreateImg from '../../assets/create.png';
-import CreateContent from '../../api/User/CreateContent';
+import CreateContent from '../../api/Content/index';
 import { RiGalleryFill } from 'react-icons/ri';
 import {useDropzone} from 'react-dropzone';
 import { ReactMediaRecorder,useReactMediaRecorder } from "react-media-recorder-2";
 import Webcam from 'react-webcam';
 import { FaDotCircle } from 'react-icons/fa';
 import { AiFillPlayCircle } from 'react-icons/ai';
-
+import Loader from '../Loader';
 
 const Create = () => {
   const [popup,setPopup]=useState(false);
-  const {createList,content,setContent,uploadContent} =CreateContent();
+  const {loading,createList,content,setContent,uploadContent} =CreateContent();
   const [recorder,setRecoder]=useState(false);
 
   const onDrop=useCallback(async(acceptedFiles)=>{
@@ -20,9 +20,7 @@ const Create = () => {
     setContent(acceptedFiles[0]);
   },[content])
   
-  useCallback(()=>{
-    console.log("decdvvrv",content);
-  },[content])
+ 
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone(
     {onDrop,type:'video/mp4'});
@@ -79,7 +77,7 @@ const Create = () => {
 
   if(!popup) return <Btn/>
   if(recorder) return <VideoRecorder/>
-
+  if(loading ) return <Loader/>
   return (
     <div className='popup-window primary-container font-inter'>
       <div className='md:w-1/2 w-full rounded-md p-5 bg-light font-inter flx-col gap-5'>
@@ -106,7 +104,7 @@ const Create = () => {
                   obj.type=='option'?
                   <div className='text-sm' key={index}>
                     <p><b>{obj.label}:</b></p>
-                    <select id={obj.id} className='p-2 rounded-md md:w-1/3 w-full'>
+                    <select id={obj.id} onChange={obj.onChange} className='p-2 rounded-md md:w-1/3 w-full'>
                         {obj.subOption.map((item)=>(
                           <option value={item.name}>{item.name}</option>
                         ))}

@@ -1,6 +1,9 @@
-import React,{useState,useCallback} from 'react'
+import React,{useState,useCallback, useEffect} from 'react'
 import { Categories } from '../../router.config';
 import { useQuery, gql,useMutation } from '@apollo/client';
+import { userData } from '../../context/UserProvider';
+import storage from '../Configure/appwrite.config';
+import {v4 as uuidv4} from 'uuid';
 
 const upload_content = gql`
       mutation CreateContent($type:String!,$description:String!,$url:String!,$owner:String!){
@@ -11,15 +14,33 @@ const upload_content = gql`
     }
 `;
 
+const get_contents = gql`
+  query {
+    getContents {
+      _id
+      type
+      url
+      description
+      owner {
+        profile
+        username
+      }
+    }
+  }
+`;
+
 const CreateContent = () => {
   const [content,setContent]=useState('');
   const [type,setType]=useState('');
   const [description,setDescription]=useState('');
-  const [video,setVideo]=useState('');
   const [loading,setLoading]=useState(false);
 
   const [createContent] = useMutation(upload_content);
+  const { data,refetch } = useQuery(get_contents);
 
+  const {profile,setProfile}=userData();
+
+  const [gallery,setGallery]=useState([]);
 
   const createList=[
 
@@ -43,22 +64,42 @@ const CreateContent = () => {
         }
     },
   ]
+  useEffect(()=>{
+    getContents();
+  },[])
+
   const uploadContent=async(e)=>{
         e.preventDefault();
         try{
+          setLoading(true);
+          const uploadImage= await storage.createFile(import.meta.env.VITE_APP_APPWRITE_BUCKET, uuidv4(), content);
+          const getFileView = await storage.getFileView(import.meta.env.VITE_APP_APPWRITE_BUCKET,uploadImage.$id);
+          const link=getFileView.href;
+          console.log(type,description,profile._id);
           const { data } = await createContent({
             variables: {
-              type:type,description:description,url:content,owner :'6x4894289'    
+              type:type,description:description,url:link,owner :profile._id   
             },
           });
+
+          setLoading(false);
+          window.location.reload();
         }
         catch(err){
           console.log(err);
         }
   }
-  
+  const getContents=useCallback(async()=>{
+    try{
+      setGallery(await refetch());
+    }
+    catch(err){
+      console.log(err);
+    }
+  },[uploadContent])
+
   return (
-    {createList,content,setContent,loading,setLoading,uploadContent}
+    {createList,content,setContent,loading,setLoading,uploadContent,gallery}
   )
 }
 
